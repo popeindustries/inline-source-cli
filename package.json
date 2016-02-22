@@ -1,0 +1,43 @@
+{
+  "name": "inline-source-cli",
+  "version": "1.0.0",
+  "description": "CLI for inline-source",
+  "main": "dist/index.js",
+  "bin": {
+    "inline-source": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "babel src -d dist -s",
+    "prebuild": "mkdirp dist",
+    "test": "eslint src",
+    "prepublish": "npm run build",
+    "release": "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/developit/inline-source-cli.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-eslint": "^5.0.0",
+    "babel-preset-es2015": "^6.5.0",
+    "eslint": "^2.2.0",
+    "mkdirp": "^0.5.1"
+  },
+  "bugs": {
+    "url": "https://github.com/developit/decko/inline-source-cli"
+  },
+  "homepage": "https://github.com/developit/inline-source-cli",
+  "keywords": [
+    "inline",
+    "source",
+    "cli",
+    "inliner"
+  ],
+  "author": "Jason Miller <jason@developit.ca>",
+  "license": "MIT",
+  "dependencies": {
+    "inline-source": "^4.2.2",
+    "yargs": "^4.1.0"
+  }
+}
