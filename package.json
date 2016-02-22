@@ -25,7 +25,7 @@
     "mkdirp": "^0.5.1"
   },
   "bugs": {
-    "url": "https://github.com/developit/decko/inline-source-cli"
+    "url": "https://github.com/developit/inline-source-cli"
   },
   "homepage": "https://github.com/developit/inline-source-cli",
   "keywords": [
