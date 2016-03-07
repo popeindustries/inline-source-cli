@@ -16,7 +16,6 @@ let argv = yargs
 	.string('root')
 	.alias('d', 'root')
 	.alias('h', 'help')
-	.demand(1)
 	.argv;
 
 let source = argv._[0];
