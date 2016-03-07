@@ -14,6 +14,12 @@ npm install inline-source-cli
 
 ## Usage
 
-```
+```sh
 inline-source --compress false --root ./ file.html
+```
+
+... or using pipes:
+
+```sh
+cat build/index.html | inline-source --root build > build/bundle.html
 ```
