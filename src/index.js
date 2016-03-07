@@ -21,7 +21,7 @@ let argv = yargs
 
 inline(argv._[0], {
 	compress: argv.compress,
-	root: argv.root || process.cwd(),
+	rootpath: argv.root || process.cwd(),
 	attribute: argv.attribute
 }, (err, html) => {
 	if (err) {
