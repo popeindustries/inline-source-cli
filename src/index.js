@@ -19,30 +19,50 @@ let argv = yargs
 	.demand(1)
 	.argv;
 
-inline(argv._[0], {
-	compress: argv.compress,
-	rootpath: argv.root || process.cwd(),
-	attribute: argv.attribute
-}, (err, html) => {
-	if (err) {
-		process.stderr.write(`Error: ${err}\n`);
-		return process.exit(1);
-	}
+let source = argv._[0];
 
-	let out = argv._[1];
-	if (out) {
-		fs.writeFile(out, html, err => {
-			if (err) {
-				process.stderr.write(`Error: ${err}\n`);
-				return process.exit(1);
-			}
+// pass "-" to read from stdin
+if (source==='-') {
+	source = '';
+	process.stdin.setEncoding('utf8');
+	process.stdin.on('readable', () => {
+		let chunk = process.stdin.read();
+		if (chunk!==null) source += chunk;
+	});
+	process.stdin.on('end', () => {
+		run(source, argv);
+	});
+}
+else {
+	run(source, argv);
+}
 
-			process.stderr.write(`Written to ${out}\n`);
+function run(source, argv) {
+	inline(source, {
+		compress: argv.compress,
+		rootpath: argv.root || argv.rootpath || process.cwd(),
+		attribute: argv.attribute
+	}, (err, html) => {
+		if (err) {
+			process.stderr.write(`Error: ${err}\n`);
+			return process.exit(1);
+		}
+
+		let out = argv._[1];
+		if (out) {
+			fs.writeFile(out, html, err => {
+				if (err) {
+					process.stderr.write(`Error: ${err}\n`);
+					return process.exit(1);
+				}
+
+				process.stderr.write(`Written to ${out}\n`);
+				process.exit(0);
+			});
+		}
+		else {
+			process.stdout.write(html + '\n');
 			process.exit(0);
-		});
-	}
-	else {
-		process.stdout.write(html + '\n');
-		process.exit(0);
-	}
-});
+		}
+	});
+}
