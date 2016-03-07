@@ -22,7 +22,7 @@ let argv = yargs
 let source = argv._[0];
 
 // pass "-" to read from stdin
-if (source==='-') {
+if (source==='-' || !source) {
 	source = '';
 	process.stdin.setEncoding('utf8');
 	process.stdin.on('readable', () => {
