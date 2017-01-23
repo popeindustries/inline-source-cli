@@ -37,7 +37,7 @@
   "author": "Jason Miller <jason@developit.ca>",
   "license": "MIT",
   "dependencies": {
-    "inline-source": "^4.2.2",
+    "inline-source": "^4.2.2||^5.0.0",
     "yargs": "^4.1.0"
   }
 }
