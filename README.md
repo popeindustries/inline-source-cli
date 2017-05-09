@@ -1,5 +1,7 @@
 # inline-source-cli [![NPM Version](http://img.shields.io/npm/v/inline-source-cli.svg?style=flat)](https://npmjs.com/package/inline-source-cli)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/developit/inline-source-cli.svg)](https://greenkeeper.io/)
+
 > A CLI for [inline-source](https://github.com/popeindustries/inline-source)
 
 
