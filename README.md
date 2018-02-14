@@ -21,5 +21,5 @@ inline-source --compress false --root ./ file.html
 ... or using pipes:
 
 ```sh
-cat build/index.html | inline-source --root build > build/bundle.html
+cat build/index.html | inline-source --root build - > build/bundle.html
 ```
