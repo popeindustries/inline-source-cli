@@ -1,67 +1,68 @@
 #!/usr/bin/env node
 
-import inline from 'inline-source';
-import yargs from 'yargs';
-import fs from 'fs';
+import { inlineSource } from 'inline-source'
+import yargs from 'yargs'
+import * as rw from 'rw'
+import * as path from 'path'
 
-// inline-source --compress false --root ./ in.html [out.html]
+const argv = yargs
+  .command('$0 <input> [output]', 'inline and compress tags that contain the inline attribute.\nsupports <script>, <link>, and <img> (including *.svg sources) tags', function (yargs) {
+    yargs
+    .positional('input', {
+      describe: '(required) input html filename, or - to read from standard input',
+      type: 'string'
+    })
+    .positional('output', {
+      describe: '(optional) output html filename, or write to standard output if omitted',
+      type: 'string'
+    })
+  })
+  .options({
+    'compress': {
+      alias: 'z',
+      describe: 'enable/disable compression of inlined content.',
+      type: 'boolean',
+      default: true
+    },
+    'attribute': {
+      alias: 'a',
+      describe: 'attribute used to parse sources. all tags will be parsed if set to false.',
+      type: 'string',
+      default: 'inline'
+    },
+    'rootpath': {
+      alias: [ 'd', 'root' ],
+      describe: 'directory path used for resolving inlineable paths.\ndefault: process.cwd()',
+      type: 'string'
+    }
+  })
+  .help()
+  .argv
 
-let argv = yargs
-	.usage(`Usage: $0 [--compress] [--root cwd] in.html [out.html]`)
-	.help()
-	.boolean('compress')
-	.alias('z', 'compress')
-	.string('attribute')
-	.default('attribute', 'inline')
-	.string('root')
-	.alias('d', 'root')
-	.alias('h', 'help')
-	.argv;
-
-let source = argv._[0];
-
-// pass "-" to read from stdin
-if (source==='-' || !source) {
-	source = '';
-	process.stdin.setEncoding('utf8');
-	process.stdin.on('readable', () => {
-		let chunk = process.stdin.read();
-		if (chunk!==null) source += chunk;
-	});
-	process.stdin.on('end', () => {
-		run(source, argv);
-	});
+const input = argv.input === '-' ? '-' : path.resolve(argv.input)
+const output = !argv.output ? '-' : path.resolve(argv.output)
+const opts = {
+  compress: argv.compress,
+  rootpath: argv.rootpath || process.cwd(),
+  attribute: argv.attribute
 }
-else {
-	run(source, argv);
-}
+const enc = 'utf8'
 
-function run(source, argv) {
-	inline(source, {
-		compress: argv.compress,
-		rootpath: argv.root || argv.rootpath || process.cwd(),
-		attribute: argv.attribute
-	}, (err, html) => {
-		if (err) {
-			process.stderr.write(`Error: ${err}\n`);
-			return process.exit(1);
-		}
+rw.dash.readFile(input, enc, function (err, html) {
+  if (err) {
+    return exit(err)
+  }
+  inlineSource(html, opts)
+  .then(function (html) {
+    rw.dash.writeFile(output, html, enc, exit)
+  })
+  .catch(exit)
+})
 
-		let out = argv._[1];
-		if (out) {
-			fs.writeFile(out, html, err => {
-				if (err) {
-					process.stderr.write(`Error: ${err}\n`);
-					return process.exit(1);
-				}
-
-				process.stderr.write(`Written to ${out}\n`);
-				process.exit(0);
-			});
-		}
-		else {
-			process.stdout.write(html + '\n');
-			process.exit(0);
-		}
-	});
+function exit (err) {
+  if (!err) {
+    return void (process.exitCode = 0)
+  }
+  process.stderr.write(`Error: ${err}\n`)
+  process.exitCode = 1
 }
