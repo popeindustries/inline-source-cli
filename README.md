@@ -23,3 +23,9 @@ inline-source --compress false --root ./ file.html
 ```sh
 cat build/index.html | inline-source --root build > build/bundle.html
 ```
+
+... running it for many files in a folder:
+
+```sh
+find ./src/templates/ -iname *.html -exec sh -c 'cat {} | inline-source --root src/templates > build/templates/$(basename {})' \;
+```
