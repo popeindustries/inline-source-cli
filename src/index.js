@@ -40,7 +40,7 @@ function run(source, argv) {
 	inline(source, {
 		compress: argv.compress,
 		rootpath: argv.root || argv.rootpath || process.cwd(),
-		attribute: argv.attribute
+		attribute: argv.attribute === 'false' ? false : argv.attribute,
 	}, (err, html) => {
 		if (err) {
 			process.stderr.write(`Error: ${err}\n`);
