@@ -43,6 +43,6 @@
   "license": "MIT",
   "dependencies": {
     "inline-source": "^7.1.0",
-    "yargs": "^4.1.0"
+    "yargs": "^14.0.0"
   }
 }
