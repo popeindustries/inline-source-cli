@@ -12,7 +12,7 @@
     "lint": "eslint src",
     "pretest": "mkdirp test/out",
     "test": "mocha --timeout 5000",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "release": "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "repository": {
