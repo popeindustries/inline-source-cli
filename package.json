@@ -9,7 +9,8 @@
   "scripts": {
     "build": "babel src -d dist -s",
     "prebuild": "mkdirp dist",
-    "test": "eslint src",
+    "lint": "eslint src",
+    "test": "mocha",
     "prepublish": "npm run build",
     "release": "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
@@ -21,8 +22,10 @@
     "babel-cli": "^6.5.1",
     "babel-eslint": "^5.0.0",
     "babel-preset-es2015": "^6.5.0",
+    "chai": "^4.2.0",
     "eslint": "^2.2.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "mocha": "^6.2.0"
   },
   "bugs": {
     "url": "https://github.com/developit/inline-source-cli"
