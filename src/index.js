@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import inline from 'inline-source';
+import {inlineSource} from 'inline-source';
 import yargs from 'yargs';
 import fs from 'fs';
 
@@ -36,17 +36,13 @@ else {
 	run(source, argv);
 }
 
-function run(source, argv) {
-	inline(source, {
-		compress: argv.compress,
-		rootpath: argv.root || argv.rootpath || process.cwd(),
-		attribute: argv.attribute
-	}, (err, html) => {
-		if (err) {
-			process.stderr.write(`Error: ${err}\n`);
-			return process.exit(1);
-		}
-
+async function run(source, argv) {
+	try {
+		const html = await inlineSource(source, {
+			compress: argv.compress,
+			rootpath: argv.root || argv.rootpath || process.cwd(),
+			attribute: argv.attribute
+		});
 		let out = argv._[1];
 		if (out) {
 			fs.writeFile(out, html, err => {
@@ -63,5 +59,8 @@ function run(source, argv) {
 			process.stdout.write(html + '\n');
 			process.exit(0);
 		}
-	});
+	} catch (err) {
+		process.stderr.write(`Error: ${err}\n`);
+		return process.exit(1);
+	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "inline-source-cli",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "CLI for inline-source",
   "main": "dist/index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "build": "babel src -d dist -s",
     "prebuild": "mkdirp dist",
     "lint": "eslint src",
-    "test": "mocha",
+    "test": "mocha --timeout 5000",
     "prepublish": "npm run build",
     "release": "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
@@ -40,7 +40,7 @@
   "author": "Jason Miller <jason@developit.ca>",
   "license": "MIT",
   "dependencies": {
-    "inline-source": "^5.0.0",
+    "inline-source": "^7.1.0",
     "yargs": "^4.1.0"
   }
 }
