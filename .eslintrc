@@ -4,8 +4,10 @@
   "env": {
     "node": true
   },
-  "ecmaFeatures": {
-    "modules": true
+  "parserOptions": {
+    "ecmaFeatures": {
+      "modules": true
+    }
   },
   "rules": {
     "no-unused-vars": [1, { "args": "after-used" }],

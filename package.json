@@ -1,6 +1,6 @@
 {
   "name": "inline-source-cli",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "CLI for inline-source",
   "main": "dist/index.js",
   "bin": {
@@ -20,11 +20,12 @@
     "url": "git://github.com/developit/inline-source-cli.git"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-eslint": "^5.0.0",
-    "babel-preset-es2015": "^6.5.0",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "babel-eslint": "^10.0.3",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
-    "eslint": "^2.2.0",
+    "eslint": "^6.5.1",
     "mkdirp": "^0.5.1",
     "mocha": "^6.2.0"
   },
