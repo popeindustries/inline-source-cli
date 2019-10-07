@@ -1,6 +1,6 @@
 {
   "name": "inline-source-cli",
-  "version": "2.1.0",
+  "version": "1.2.0",
   "description": "CLI for inline-source",
   "main": "dist/index.js",
   "bin": {
@@ -43,6 +43,6 @@
   "license": "MIT",
   "dependencies": {
     "inline-source": "^7.1.0",
-    "yargs": "^14.0.0"
+    "yargs": "^14.2.0"
   }
 }
