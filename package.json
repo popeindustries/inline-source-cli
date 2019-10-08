@@ -9,8 +9,10 @@
   "scripts": {
     "build": "babel src -d dist -s",
     "prebuild": "mkdirp dist",
-    "test": "eslint src",
-    "prepublish": "npm run build",
+    "lint": "eslint src",
+    "pretest": "mkdirp test/out",
+    "test": "mocha --timeout 5000",
+    "prepare": "npm run build",
     "release": "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "repository": {
@@ -18,11 +20,14 @@
     "url": "git://github.com/developit/inline-source-cli.git"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-eslint": "^5.0.0",
-    "babel-preset-es2015": "^6.5.0",
-    "eslint": "^2.2.0",
-    "mkdirp": "^0.5.1"
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.0.0",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "eslint": "^6.5.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^6.2.0"
   },
   "bugs": {
     "url": "https://github.com/developit/inline-source-cli"
@@ -37,7 +42,7 @@
   "author": "Jason Miller <jason@developit.ca>",
   "license": "MIT",
   "dependencies": {
-    "inline-source": "^5.0.0",
-    "yargs": "^4.1.0"
+    "inline-source": "^7.1.0",
+    "yargs": "^14.2.0"
   }
 }
