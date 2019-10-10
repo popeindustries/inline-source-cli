@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "babel src -d dist -s",
+    "format": "prettier --write './{src,test}/**/*.{js,json,css}'",
     "prebuild": "mkdirp dist",
     "lint": "eslint src",
     "pretest": "mkdirp test/out",
@@ -17,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/developit/inline-source-cli.git"
+    "url": "git://github.com/popeindustries/inline-source-cli.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
@@ -26,23 +27,35 @@
     "babel-eslint": "^10.0.3",
     "chai": "^4.2.0",
     "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "mkdirp": "^0.5.1",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "prettier": "^1.18.2"
   },
   "bugs": {
-    "url": "https://github.com/developit/inline-source-cli"
+    "url": "https://github.com/popeindustries/inline-source-cli"
   },
-  "homepage": "https://github.com/developit/inline-source-cli",
+  "homepage": "https://github.com/popeindustries/inline-source-cli",
   "keywords": [
     "inline",
     "source",
     "cli",
     "inliner"
   ],
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "author": "Jason Miller <jason@developit.ca>",
   "license": "MIT",
   "dependencies": {
     "inline-source": "^7.1.0",
     "yargs": "^14.2.0"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "htmlWhitespaceSensitivity": "strict",
+    "printWidth": 80,
+    "singleQuote": true
   }
 }
